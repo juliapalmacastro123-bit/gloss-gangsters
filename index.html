@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>EL ARSENAL | FULL VOICE PRODUCTION</title>
+    <title>EL CAPO DEL SONIDO | VOCAL ELITE STUDIO</title>
     <style>
         :root { --gold: #c5a059; --blood: #7b0000; --bg: #030303; --safety: #00ff00; }
         body { background: #000; color: #555; font-family: 'Courier New', monospace; margin: 0; padding: 10px; text-transform: uppercase; }
@@ -14,7 +14,7 @@
         }
 
         .header { border-bottom: 2px solid #222; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
-        .header h1 { color: #fff; font-size: 1.8rem; letter-spacing: 12px; margin: 0; }
+        .header h1 { color: #fff; font-size: 1.8rem; letter-spacing: 10px; margin: 0; }
         .vpn-tag { font-size: 8px; border: 1px solid #0033ff; padding: 4px; color: #0033ff; }
 
         .section-label { color: var(--gold); font-size: 10px; letter-spacing: 3px; display: block; margin: 25px 0 10px 0; border-left: 3px solid var(--blood); padding-left: 10px; }
@@ -26,7 +26,7 @@
         
         audio { width: 100%; filter: invert(1); margin-top: 20px; }
 
-        /* TABLA DE PRECIOS: GRABACIÓN + MÁSTER */
+        /* TABLA DE PRECIOS: EL CAPO RATES */
         .bill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
         .currency-col { background: #080808; border: 1px solid #1a1a1a; padding: 10px; }
         .currency-col h4 { color: var(--gold); font-size: 9px; text-align: center; border-bottom: 1px solid #222; margin-top: 0; padding-bottom: 5px; }
@@ -41,6 +41,7 @@
         #dl-zone { display: none; margin-top: 20px; border: 1px solid var(--safety); padding: 15px; text-align: center; }
         .dl-btn { color: var(--safety); text-decoration: none; font-weight: bold; letter-spacing: 5px; font-size: 1rem; }
 
+        /* LLAVE MAESTRA INVISIBLE */
         #pentagrama-key { position: absolute; bottom: 0; right: 0; width: 45px; height: 45px; background: transparent; z-index: 1000; }
     </style>
 </head>
@@ -48,76 +49,17 @@
 
 <div class="master-rack">
     <div class="header">
-        <h1>EL ARSENAL</h1>
-        <div class="vpn-tag">ELITE STUDIO: RECORDING & AUTO-TUNE</div>
+        <h1>EL CAPO DEL SONIDO</h1>
+        <div class="vpn-tag">SECURE VOICE TUNNEL ACTIVE</div>
     </div>
 
-    <span class="section-label">LIVE CABIN / SERVICIO DE GRABACIÓN DE VOZ</span>
+    <span class="section-label">STUDIO CABIN / CABINA DE GRABACIÓN</span>
     <div class="voice-booth">
-        <span class="autotune-status">● VOICE PITCH CORRECTION EMULATOR: READY</span>
-        <button class="btn-record" onclick="alert('GRABANDO... HÁBLALE AL MICRO')">START RECORDING / GRABAR VOZ</button>
+        <span class="autotune-status">● PITCH CORRECTION EMULATOR: ON (ELITE MODE)</span>
+        <button class="btn-record" onclick="alert('MIC ACTIVE / CAPTURANDO VOZ...')">REC START / GRABAR VOZ</button>
         <input type="file" id="trackIn" accept="audio/*" style="margin-top:10px; color:#444; font-size:9px;">
-        <button style="background:var(--blood); color:#fff; border:none; padding:15px; width:100%; margin-top:10px; cursor:pointer; font-weight:bold; letter-spacing:3px;" onclick="process()">MASTERIZE RECORDING / MASTERIZAR GRABACIÓN</button>
+        <button style="background:var(--blood); color:#fff; border:none; padding:15px; width:100%; margin-top:10px; cursor:pointer; font-weight:bold; letter-spacing:3px;" onclick="process()">MASTERIZE / MASTERIZAR AL ESTILO CAPO</button>
         
         <div id="output" style="display:none;">
-            <audio id="player" controls controlsList="nodownload"></audio>
-            <div id="dl-zone"><a id="dl-link" class="dl-btn" href="#">📥 DOWNLOAD FINAL PRODUCTION</a></div>
-        </div>
-    </div>
-
-    <span class="section-label">FULL PRODUCTION RATES / TARIFAS (REC + MASTER)</span>
-    <div class="bill-grid">
-        <div class="currency-col">
-            <h4>MÉXICO (MXN)</h4>
-            <div class="tier"><span>1 ROLA | $200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAGAR</a></div>
-            <div class="tier"><span>5 ROLAS | $850</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAGAR</a></div>
-            <div class="tier"><span>8 ROLAS | $1200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAGAR</a></div>
-        </div>
-        <div class="currency-col">
-            <h4>USA (USD)</h4>
-            <div class="tier"><span>1 TRACK | $200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
-            <div class="tier"><span>5 TRACKS | $850</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
-            <div class="tier"><span>8 TRACKS | $1200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
-        </div>
-        <div class="currency-col">
-            <h4>EUROPE (EUR)</h4>
-            <div class="tier"><span>1 TRACK | €200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
-            <div class="tier"><span>5 TRACKS | €850</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
-            <div class="tier"><span>8 TRACKS | €1200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
-        </div>
-    </div>
-
-    <div class="legal-box">
-        <b>ESP:</b> SERVICIO COMPLETO INCLUYE GRABACIÓN PROFESIONAL DE VOZ Y MÁSTER FINAL CON AUTO-TUNE. SIN INSTRUMENTOS. <br><br>
-        <b>ENG:</b> FULL SERVICE INCLUDES PROFESSIONAL VOICE RECORDING AND FINAL MASTERING WITH AUTO-TUNE. NO INSTRUMENTS.
-    </div>
-
-    <div id="pentagrama-key" onmousedown="hStart()" onmouseup="hEnd()" ontouchstart="hStart()" ontouchend="hEnd()"></div>
-</div>
-
-<script>
-    let isVip = false, t;
-    const p = document.getElementById('player');
-
-    function process() {
-        const f = document.getElementById('trackIn').files[0];
-        if(!f) return alert("NO FILE / NO HAY ARCHIVO");
-        document.getElementById('output').style.display = 'block';
-        const u = URL.createObjectURL(f);
-        p.src = u; p.play();
-        p.ontimeupdate = () => {
-            if(!isVip && p.currentTime >= 90) { 
-                p.pause(); p.currentTime = 0; 
-                alert("90s PREVIEW ENDED. / PREVIEW TERMINADO. PAGA PARA LIBERAR TU MÚSICA."); 
-            }
-        };
-        const dl = document.getElementById('dl-link');
-        dl.href = u; dl.download = "ARSENAL_PROD_FINAL_" + f.name;
-    }
-
-    function unlock() { isVip = true; document.getElementById('dl-zone').style.display = 'block'; alert("BYPASS ACTIVO: OPERACIÓN MAESTRA"); }
-    function hStart(){ t = setTimeout(unlock, 3000); }
-    function hEnd(){ clearTimeout(t); }
-</script>
-</body>
-</html>
+            <audio id="player" controls controlsList="nodown
+                
