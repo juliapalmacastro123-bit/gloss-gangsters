@@ -24,9 +24,9 @@
 <div class="bunker">
     <h1>EL CAPO DEL AUDIO</h1>
     <div class="sub">BY ERICK SLAYER3866 | V.2026 GLOBAL</div>
-    <div class="consola" id="log">> VPN SECURITY ACTIVE...<br>> <span id="slogan" style="color:var(--oro);">DISPARÁNDOLE A TUS ROLAS JODIDAS</span></div>
+    <div class="consola">> VPN SECURITY ACTIVE...<br>> <span style="color:var(--oro);">DISPARÁNDOLE A TUS ROLAS JODIDAS</span></div>
     
-    <button id="recBtn" class="btn btn-grab" onclick="recStart()">● <span id="txt-rec">GRABAR VOZ O INSTRUMENTO</span></button>
+    <button id="recBtn" class="btn btn-grab" onclick="recStart()">● GRABAR VOZ O INSTRUMENTO</button>
     <button id="stopBtn" class="btn" style="display:none; background:#fff;" onclick="recStop()">■ STOP</button>
     
     <input type="file" id="inputAudio" accept="audio/*" style="width:100%; margin:10px 0;">
@@ -38,14 +38,13 @@
         <div id="descarga"><a id="linkD" style="color:var(--oro); text-decoration:none; font-weight:bold;">📥 DOWNLOAD MASTER</a></div>
     </div>
     
-    <div id="key" style="margin-top:20px; color:#111; cursor:pointer;">♫</div>
+    <div id="key" style="margin-top:20px; color:#111; cursor:pointer; font-size:1.2rem;">♫</div>
 </div>
 
 <script>
-    let rec, chunks = [], boss = false, timer, isEn = navigator.language.startsWith('en');
-    if(isEn) document.getElementById('slogan').innerText = "SHOOTING YOUR TRACKS";
+    let rec, chunks = [], boss = false, timer;
 
-    // CADENERO VPN
+    // BLOQUEO VPN / PROXY
     fetch('https://ipapi.co/json/').then(r => r.json()).then(d => {
         if(d.security && (d.security.vpn || d.security.proxy)) document.body.innerHTML = "<h1>ACCESS DENIED</h1>";
     });
@@ -69,27 +68,49 @@
 
         const zona = Intl.DateTimeFormat().resolvedOptions().timeZone;
         let mon = "MXN";
-        if (zona.includes("Europe")) mon = "EUR";
-        else if (zona.includes("America") && !zona.includes("Mexico")) mon = "USD";
+        if (zona.includes("Europe")) { mon = "EUR"; }
+        else if (zona.includes("America") && !zona.includes("Mexico")) { mon = "USD"; }
 
-        let precios = grab ? 
-            {u: (mon==="EUR"?"€90":(mon==="USD"?"$95":"$650")), o: (mon==="EUR"?"€280":(mon==="USD"?"$300":"$2150"))} :
-            {u: (mon==="EUR"?"€40":(mon==="USD"?"$45":"$300")), o: (mon==="EUR"?"€220":(mon==="USD"?"$250":"$1800"))};
-
-        const t = isEn ? ["1 TRACK", "8 TRACKS", "RATE:"] : ["1 ROLA", "8 ROLAS", "CUOTA:"];
+        // LÓGICA DE PRECIOS SEPARADOS
+        let p1, p5, p8;
+        if (grab) {
+            // SI GRABÓ (MÁS CARO)
+            p1 = (mon==="EUR"?"€90":(mon==="USD"?"$95":"$650"));
+            p5 = (mon==="EUR"?"€190":(mon==="USD"?"$210":"$1550"));
+            p8 = (mon==="EUR"?"€280":(mon==="USD"?"$300":"$2150"));
+        } else {
+            // SÓLO MÚSICA (NORMAL)
+            p1 = (mon==="EUR"?"€40":(mon==="USD"?"$45":"$300"));
+            p5 = (mon==="EUR"?"€140":(mon==="USD"?"$160":"$1200"));
+            p8 = (mon==="EUR"?"€220":(mon==="USD"?"$250":"$1800"));
+        }
 
         document.getElementById('lista-precios').innerHTML = `
-            <div style="font-size:8px; color:#555; margin-bottom:5px;">${t[2]}</div>
-            <a href="https://link.mercadopago.com.mx/elcapo" class="pago"><span>${t[0]}</span> <span class="monto">${precios.u} ${mon}</span></a>
-            <a href="https://link.mercadopago.com.mx/elcapo" class="pago"><span>${t[1]}</span> <span class="monto">${precios.o} ${mon}</span></a>`;
+            <div style="font-size:8px; color:#555; margin-bottom:10px;">CUOTA DE GUERRA (${mon}):</div>
+            <a href="https://link.mercadopago.com.mx/elcapo" target="_blank" class="pago"><span>1 ROLA ${grab?'(GRABACIÓN)':''}</span> <span class="monto">${p1} ${mon}</span></a>
+            <a href="https://link.mercadopago.com.mx/elcapo" target="_blank" class="pago"><span>5 ROLAS ${grab?'(GRABACIÓN)':''}</span> <span class="monto">${p5} ${mon}</span></a>
+            <a href="https://link.mercadopago.com.mx/elcapo" target="_blank" class="pago"><span>8 ROLAS (CAPO FULL)</span> <span class="monto">${p8} ${mon}</span></a>`;
         
         document.getElementById('resultado').style.display='block'; p.play();
-        p.ontimeupdate = () => { if(!boss && p.currentTime >= 90) { p.pause(); p.currentTime=0; alert("PAGA AL CAPO"); }};
+        
+        p.ontimeupdate = () => { 
+            if(!boss && p.currentTime >= 90) { 
+                p.pause(); p.currentTime=0; 
+                alert("PAGA EL DERECHO DE PISO AL CAPO"); 
+            }
+        };
         document.getElementById('linkD').href = p.src;
+        document.getElementById('linkD').download = "CAPO_MASTER.mp3";
     }
 
     const k = document.getElementById('key');
-    k.onmousedown = () => { timer = setTimeout(() => { boss=true; document.getElementById('descarga').style.display='block'; alert("BOSS MODE"); }, 3000); };
+    k.onmousedown = () => { 
+        timer = setTimeout(() => { 
+            boss = true; 
+            document.getElementById('descarga').style.display = 'block'; 
+            alert("MODO BOSS ACTIVADO"); 
+        }, 3000); 
+    };
     k.onmouseup = () => clearTimeout(timer);
 </script>
 </body>
