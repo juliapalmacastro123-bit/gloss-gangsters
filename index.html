@@ -2,56 +2,122 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL CAPO DEL AUDIO | BÚNKER GLOBAL</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>EL ARSENAL | FULL VOICE PRODUCTION</title>
     <style>
-        :root { --oro: #d4af37; --negro: #050505; --rojo: #ff0000; }
-        body { background: #000; color: #fff; font-family: 'Trebuchet MS', sans-serif; text-align: center; padding: 20px; user-select: none; }
-        .bunker { max-width: 440px; margin: auto; background: var(--negro); border: 1px solid #222; border-radius: 20px; padding: 30px; box-shadow: 0 0 50px rgba(212,175,55,0.1); }
-        h1 { font-size: 1.7rem; color: var(--oro); text-transform: uppercase; font-weight: 900; margin-bottom: 5px; }
-        .sub { font-size: 0.65rem; color: #555; letter-spacing: 3px; margin-bottom: 20px; }
-        .consola { background: #000; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 0.75rem; text-align: left; border-left: 4px solid var(--oro); margin-bottom: 20px; color: #777; }
-        .btn { width: 100%; padding: 16px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-bottom: 10px; text-transform: uppercase; }
-        .btn-grab { background: #1a0000; color: var(--rojo); border: 1px solid #400; }
-        .btn-master { background: var(--oro); color: #000; font-size: 1rem; }
-        .pago { display: flex; justify-content: space-between; background: #0a0a0a; padding: 14px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #1a1a1a; text-decoration: none; color: #fff; font-size: 0.8rem; }
-        .monto { color: var(--oro); font-weight: bold; }
-        audio { width: 100%; margin: 15px 0; filter: invert(1); }
-        #descarga { display: none; border: 1px solid var(--oro); padding: 12px; border-radius: 8px; background: #0c0a00; margin-top: 15px; }
+        :root { --gold: #c5a059; --blood: #7b0000; --bg: #030303; --safety: #00ff00; }
+        body { background: #000; color: #555; font-family: 'Courier New', monospace; margin: 0; padding: 10px; text-transform: uppercase; }
+        
+        .master-rack { 
+            max-width: 1100px; margin: 0 auto; background: var(--bg); border: 4px solid #1a1a1a; 
+            padding: 30px; box-shadow: 0 0 100px #000; position: relative;
+        }
+
+        .header { border-bottom: 2px solid #222; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { color: #fff; font-size: 1.8rem; letter-spacing: 12px; margin: 0; }
+        .vpn-tag { font-size: 8px; border: 1px solid #0033ff; padding: 4px; color: #0033ff; }
+
+        .section-label { color: var(--gold); font-size: 10px; letter-spacing: 3px; display: block; margin: 25px 0 10px 0; border-left: 3px solid var(--blood); padding-left: 10px; }
+
+        .voice-booth { background: #050505; border: 1px solid var(--blood); padding: 30px; text-align: center; margin-bottom: 20px; }
+        .btn-record { background: #111; color: var(--safety); border: 1px solid var(--safety); padding: 15px; width: 100%; font-size: 1rem; letter-spacing: 5px; cursor: pointer; font-weight: bold; margin-bottom: 10px; }
+        .btn-record:hover { background: var(--safety); color: #000; }
+        .autotune-status { color: var(--safety); font-size: 9px; letter-spacing: 2px; margin-bottom: 15px; display: block; }
+        
+        audio { width: 100%; filter: invert(1); margin-top: 20px; }
+
+        /* TABLA DE PRECIOS: GRABACIÓN + MÁSTER */
+        .bill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .currency-col { background: #080808; border: 1px solid #1a1a1a; padding: 10px; }
+        .currency-col h4 { color: var(--gold); font-size: 9px; text-align: center; border-bottom: 1px solid #222; margin-top: 0; padding-bottom: 5px; }
+        .tier { padding: 6px 0; display: flex; justify-content: space-between; align-items: center; font-size: 8px; border-bottom: 1px solid #111; }
+        .pay-link { background: #009ee3; color: #fff; text-decoration: none; padding: 4px 8px; font-weight: bold; font-size: 8px; }
+
+        .legal-box { 
+            margin-top: 30px; background: #080808; border: 1px solid #222; padding: 20px; 
+            font-size: 9px; line-height: 1.5; color: #444; text-align: justify;
+        }
+
+        #dl-zone { display: none; margin-top: 20px; border: 1px solid var(--safety); padding: 15px; text-align: center; }
+        .dl-btn { color: var(--safety); text-decoration: none; font-weight: bold; letter-spacing: 5px; font-size: 1rem; }
+
+        #pentagrama-key { position: absolute; bottom: 0; right: 0; width: 45px; height: 45px; background: transparent; z-index: 1000; }
     </style>
 </head>
-<body oncontextmenu="return false">
-<div class="bunker">
-    <h1>EL CAPO DEL AUDIO</h1>
-    <div class="sub">BY ERICK SLAYER3866 | V.2026 GLOBAL</div>
-    <div class="consola">> VPN SECURITY ACTIVE...<br>> <span style="color:var(--oro);">DISPARÁNDOLE A TUS ROLAS JODIDAS</span></div>
-    
-    <button id="recBtn" class="btn btn-grab" onclick="recStart()">● GRABAR VOZ O INSTRUMENTO</button>
-    <button id="stopBtn" class="btn" style="display:none; background:#fff;" onclick="recStop()">■ STOP</button>
-    
-    <input type="file" id="inputAudio" accept="audio/*" style="width:100%; margin:10px 0;">
-    <button class="btn btn-master" onclick="masterizar(false)">SOLTAR EL MÁSTER</button>
+<body>
 
-    <div id="resultado" style="display:none;">
-        <audio id="player" controls controlsList="nodownload"></audio>
-        <div id="lista-precios" style="margin-top:20px;"></div>
-        <div id="descarga"><a id="linkD" style="color:var(--oro); text-decoration:none; font-weight:bold;">📥 DOWNLOAD MASTER</a></div>
+<div class="master-rack">
+    <div class="header">
+        <h1>EL ARSENAL</h1>
+        <div class="vpn-tag">ELITE STUDIO: RECORDING & AUTO-TUNE</div>
     </div>
-    
-    <div id="key" style="margin-top:20px; color:#111; cursor:pointer; font-size:1.2rem;">♫</div>
+
+    <span class="section-label">LIVE CABIN / SERVICIO DE GRABACIÓN DE VOZ</span>
+    <div class="voice-booth">
+        <span class="autotune-status">● VOICE PITCH CORRECTION EMULATOR: READY</span>
+        <button class="btn-record" onclick="alert('GRABANDO... HÁBLALE AL MICRO')">START RECORDING / GRABAR VOZ</button>
+        <input type="file" id="trackIn" accept="audio/*" style="margin-top:10px; color:#444; font-size:9px;">
+        <button style="background:var(--blood); color:#fff; border:none; padding:15px; width:100%; margin-top:10px; cursor:pointer; font-weight:bold; letter-spacing:3px;" onclick="process()">MASTERIZE RECORDING / MASTERIZAR GRABACIÓN</button>
+        
+        <div id="output" style="display:none;">
+            <audio id="player" controls controlsList="nodownload"></audio>
+            <div id="dl-zone"><a id="dl-link" class="dl-btn" href="#">📥 DOWNLOAD FINAL PRODUCTION</a></div>
+        </div>
+    </div>
+
+    <span class="section-label">FULL PRODUCTION RATES / TARIFAS (REC + MASTER)</span>
+    <div class="bill-grid">
+        <div class="currency-col">
+            <h4>MÉXICO (MXN)</h4>
+            <div class="tier"><span>1 ROLA | $200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAGAR</a></div>
+            <div class="tier"><span>5 ROLAS | $850</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAGAR</a></div>
+            <div class="tier"><span>8 ROLAS | $1200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAGAR</a></div>
+        </div>
+        <div class="currency-col">
+            <h4>USA (USD)</h4>
+            <div class="tier"><span>1 TRACK | $200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
+            <div class="tier"><span>5 TRACKS | $850</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
+            <div class="tier"><span>8 TRACKS | $1200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
+        </div>
+        <div class="currency-col">
+            <h4>EUROPE (EUR)</h4>
+            <div class="tier"><span>1 TRACK | €200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
+            <div class="tier"><span>5 TRACKS | €850</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
+            <div class="tier"><span>8 TRACKS | €1200</span> <a href="https://mpago.la/1MKz4sq" class="pay-link" target="_blank">PAY</a></div>
+        </div>
+    </div>
+
+    <div class="legal-box">
+        <b>ESP:</b> SERVICIO COMPLETO INCLUYE GRABACIÓN PROFESIONAL DE VOZ Y MÁSTER FINAL CON AUTO-TUNE. SIN INSTRUMENTOS. <br><br>
+        <b>ENG:</b> FULL SERVICE INCLUDES PROFESSIONAL VOICE RECORDING AND FINAL MASTERING WITH AUTO-TUNE. NO INSTRUMENTS.
+    </div>
+
+    <div id="pentagrama-key" onmousedown="hStart()" onmouseup="hEnd()" ontouchstart="hStart()" ontouchend="hEnd()"></div>
 </div>
 
 <script>
-    let rec, chunks = [], boss = false, timer;
+    let isVip = false, t;
+    const p = document.getElementById('player');
 
-    // BLOQUEO VPN / PROXY
-    fetch('https://ipapi.co/json/').then(r => r.json()).then(d => {
-        if(d.security && (d.security.vpn || d.security.proxy)) document.body.innerHTML = "<h1>ACCESS DENIED</h1>";
-    });
+    function process() {
+        const f = document.getElementById('trackIn').files[0];
+        if(!f) return alert("NO FILE / NO HAY ARCHIVO");
+        document.getElementById('output').style.display = 'block';
+        const u = URL.createObjectURL(f);
+        p.src = u; p.play();
+        p.ontimeupdate = () => {
+            if(!isVip && p.currentTime >= 90) { 
+                p.pause(); p.currentTime = 0; 
+                alert("90s PREVIEW ENDED. / PREVIEW TERMINADO. PAGA PARA LIBERAR TU MÚSICA."); 
+            }
+        };
+        const dl = document.getElementById('dl-link');
+        dl.href = u; dl.download = "ARSENAL_PROD_FINAL_" + f.name;
+    }
 
-    async function recStart() {
-        chunks = []; const s = await navigator.mediaDevices.getUserMedia({ audio: true });
-        rec = new MediaRecorder(s); rec.ondataavailable = e => chunks.push(e.data);
-        rec.onstop = () => { 
-            const b = new Blob(chunks, { type: 'audio/mp3' }); 
-            document.getElementById('
+    function unlock() { isVip = true; document.getElementById('dl-zone').style.display = 'block'; alert("BYPASS ACTIVO: OPERACIÓN MAESTRA"); }
+    function hStart(){ t = setTimeout(unlock, 3000); }
+    function hEnd(){ clearTimeout(t); }
+</script>
+</body>
+</html>
