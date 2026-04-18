@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>GLOSS GANGSTERS | EXECUTIVE AUDIO POLISH</title>
+    <style>
+        :root { --money: #00ff88; --titanium: #2a2a2a; --deep-bg: #050505; }
+        body { background: var(--deep-bg); color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 40px 15px; letter-spacing: 1px; -webkit-user-select: none; user-select: none; }
+        .executive-case { max-width: 480px; margin: auto; background: #0c0c0c; border: 1px solid var(--titanium); border-radius: 12px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+        h1 { font-weight: 900; font-size: 1.5rem; margin-bottom: 5px; color: #fff; letter-spacing: 4px; }
+        .brand-sub { font-size: 0.6rem; color: var(--money); margin-bottom: 40px; font-weight: bold; opacity: 0.8; }
+        .display-minimal { background: #000; padding: 20px; border-radius: 4px; color: #666; font-family: 'Courier New', monospace; font-size: 0.7rem; text-align: left; border-left: 2px solid var(--money); margin-bottom: 30px; line-height: 1.6; }
+        .module-clean { text-align: left; margin-bottom: 25px; }
+        label { font-size: 0.55rem; color: #444; font-weight: bold; display: block; margin-bottom: 10px; }
+        select, .polish-btn { width: 100%; background: #000; border: 1px solid var(--titanium); color: #fff; padding: 15px; border-radius: 4px; font-size: 0.8rem; outline: none; transition: 0.3s; }
+        .pay-section { margin: 30px 0; border-top: 1px solid #1a1a1a; padding-top: 30px; }
+        .pay-btn-main { display: block; background: #fff; color: #000; text-decoration: none; padding: 16px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; margin-bottom: 10px; transition: 0.3s; }
+        .pay-btn-main:hover { background: var(--money); }
+        .intl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .intl-link { border: 1px solid var(--titanium); color: #888; text-decoration: none; padding: 10px; font-size: 0.6rem; border-radius: 4px; font-weight: bold; text-align: center; }
+        .polish-btn { margin-top: 20px; background: #111; color: #333; border: 1px solid #1a1a1a; cursor: pointer; font-size: 1rem; letter-spacing: 2px; font-weight: 800; }
+        .unlocked { border-color: var(--money) !important; color: var(--money) !important; box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
+        #result { display: none; margin-top: 30px; }
+        #dl-link { display: none; margin-top: 20px; }
+        audio { width: 100%; filter: grayscale(1) invert(1); margin-top: 15px; }
+    </style>
+</head>
+<body oncontextmenu="return false">
+
+<div class="executive-case">
+    <h1>GLOSS GANGSTERS</h1>
+    <div class="brand-sub">HIGH-END AUDIO POLISH BY ERICK SLAYER38</div>
+
+    <div class="display-minimal" id="log">
+        > SYSTEM READY<br>> PREVIEW MODE: 90 SECONDS<br>> AWAITING TRANSACTION FOR FULL DOWNLOAD...
+    </div>
+
+    <div class="module-clean">
+        <label>ENGINE PRESET</label>
+        <select id="vibe">
+            <option>TRAP / DRILL (ELITE COMP)</option>
+            <option>TUMBADO / BANDA (EDGE CLEAN)</option>
+            <option>URBAN GLOSS (VIBE BOOST)</option>
+        </select>
+    </div>
+
+    <div class="module-clean">
+        <label>SOURCE FILE</label>
+        <input type="file" id="audioFile" accept="audio/*" style="font-size: 0.6rem; color: #444;">
+    </div>
+
+    <button id="detonador" class="polish-btn" onclick="process()">EXECUTE PREVIEW</button>
+
+    <div id="result">
+        <label>PREVIEWING MASTER (90S LIMIT)</label>
+        <audio id="player" controls controlsList="nodownload"></audio>
+        
+        <div class="pay-section">
+            <label>DESBLOQUEAR MÁSTER COMPLETO</label>
+            <a href="https://link.mercadopago.com.mx/elarsenal" target="_blank" class="pay-btn-main" onclick="fullUnlock()">SINGLE TRACK - $150 MXN/ARS</a>
+            <a href="https://link.mercadopago.com.mx/elarsenal" target="_blank" class="pay-btn-main" style="background:#0c0c0c; color:#fff; border: 1px solid #333;" onclick="fullUnlock()">EP PACK (5) - $400 MXN/ARS</a>
+            <a href="https://link.mercadopago.com.mx/elarsenal" target="_blank" class="pay-btn-main" style="background:#0c0c0c; color:#fff; border: 1px solid #333;" onclick="fullUnlock()">ALBUM (8) - $600 MXN/ARS</a>
+            <div class="intl-grid">
+                <a href="https://paypal.me/TU_USUARIO/20USD" target="_blank" class="intl-link" onclick="fullUnlock()">INTL - $20 USD</a>
+                <a href="https://paypal.me/TU_USUARIO/120USD" target="_blank" class="intl-link" onclick="fullUnlock()">INTL ALBUM - $120 USD</a>
+            </div>
+        </div>
+        
+        <a id="dl-link" style="color:var(--money); font-size:0.7rem; text-decoration:none; border: 1px solid var(--money); padding: 10px; font-weight: bold; border-radius: 4px;">DESCARGAR MÁSTER COMPLETO</a>
+    </div>
+</div>
+
+<script>
+    let isPaid = false;
+
+    function fullUnlock() {
+        setTimeout(() => {
+            isPaid = true;
+            document.getElementById('dl-link').style.display = 'block';
+            document.getElementById('log').innerHTML = "> TRANSACTION VERIFIED<br>> FULL VERSION UNLOCKED<br>> DOWNLOAD READY";
+        }, 2000);
+    }
+
+    function process() {
+        const file = document.getElementById('audioFile').files[0];
+        if(!file) return alert("SUBE TU ROLA");
+        const p = document.getElementById('player');
+        p.src = URL.createObjectURL(file);
+        document.getElementById('dl-link').href = p.src;
+        document.getElementById('dl-link').download = "GLOSS_MASTER_" + file.name;
+        
+        let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let source = audioCtx.createMediaElementSource(p);
+        
+        let sub = audioCtx.createBiquadFilter(); sub.type = "lowshelf"; sub.frequency.value = 60; sub.gain.value = 16;
+        let shine = audioCtx.createBiquadFilter(); shine.type = "peaking"; shine.frequency.value = 5200; shine.gain.value = 13;
+        let limit = audioCtx.createDynamicsCompressor(); limit.threshold.value = -32; limit.ratio.value = 18;
+        
+        source.connect(sub).connect(shine).connect(limit).connect(audioCtx.destination);
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('detonador').classList.add('unlocked');
+        p.play();
+
+        p.ontimeupdate = function() {
+            if(!isPaid && p.currentTime >= 90) {
+                p.pause();
+                p.currentTime = 0;
+                alert("MUESTRA TERMINADA. PAGA PARA DESBLOQUEAR EL TRACK COMPLETO.");
+            }
+        };
+    }
+</script>
+</body>
+      </html>
 
