@@ -3,134 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL CAPO DEL AUDIO | PODER EJECUTIVO</title>
+    <title>EL CAPO DEL AUDIO | BÚNKER GLOBAL</title>
     <style>
-        :root { --oro: #d4af37; --negro: #050505; --gris: #151515; --rojo: #ff0000; }
-        body { background: #000; color: #fff; font-family: 'Trebuchet MS', sans-serif; text-align: center; padding: 20px; }
-        .bunker { max-width: 440px; margin: auto; background: var(--negro); border: 1px solid #222; border-radius: 20px; padding: 35px; box-shadow: 0 0 50px rgba(212,175,55,0.1); }
-        h1 { font-size: 1.8rem; letter-spacing: 3px; color: var(--oro); margin-bottom: 5px; text-transform: uppercase; font-weight: 900; }
-        .sub { font-size: 0.7rem; color: #555; letter-spacing: 3px; margin-bottom: 25px; font-weight: bold; }
-        .pantalla { background: #000; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 0.8rem; text-align: left; border-left: 4px solid var(--oro); margin-bottom: 25px; color: #888; }
-        .btn { width: 100%; padding: 18px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-bottom: 12px; text-transform: uppercase; transition: 0.3s; }
+        :root { --oro: #d4af37; --negro: #050505; --rojo: #ff0000; }
+        body { background: #000; color: #fff; font-family: 'Trebuchet MS', sans-serif; text-align: center; padding: 20px; user-select: none; }
+        .bunker { max-width: 440px; margin: auto; background: var(--negro); border: 1px solid #222; border-radius: 20px; padding: 30px; box-shadow: 0 0 50px rgba(212,175,55,0.1); }
+        h1 { font-size: 1.7rem; color: var(--oro); text-transform: uppercase; font-weight: 900; margin-bottom: 5px; }
+        .sub { font-size: 0.65rem; color: #555; letter-spacing: 3px; margin-bottom: 20px; }
+        .consola { background: #000; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 0.75rem; text-align: left; border-left: 4px solid var(--oro); margin-bottom: 20px; color: #777; }
+        .btn { width: 100%; padding: 16px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-bottom: 10px; text-transform: uppercase; }
         .btn-grab { background: #1a0000; color: var(--rojo); border: 1px solid #400; }
-        .btn-stop { background: #fff; color: #000; display: none; }
         .btn-master { background: var(--oro); color: #000; font-size: 1rem; }
-        .precios { margin-top: 30px; border-top: 1px solid #222; padding-top: 20px; display: none; }
-        .pago { display: flex; justify-content: space-between; background: #0a0a0a; padding: 16px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #1a1a1a; text-decoration: none; color: #fff; font-size: 0.85rem; }
+        .pago { display: flex; justify-content: space-between; background: #0a0a0a; padding: 14px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #1a1a1a; text-decoration: none; color: #fff; font-size: 0.8rem; }
         .monto { color: var(--oro); font-weight: bold; }
-        audio { width: 100%; margin: 20px 0; filter: invert(1) contrast(1.2); }
-        #descarga { display: none; border: 1px solid var(--oro); padding: 15px; border-radius: 8px; margin-top: 15px; background: #110e00; }
-        input[type="file"] { background: #0a0a0a; color: #444; padding: 12px; border-radius: 5px; border: 1px solid #1a1a1a; width: 100%; box-sizing: border-box; }
+        audio { width: 100%; margin: 15px 0; filter: invert(1); }
+        #descarga { display: none; border: 1px solid var(--oro); padding: 12px; border-radius: 8px; background: #0c0a00; margin-top: 15px; }
     </style>
 </head>
 <body oncontextmenu="return false">
-
 <div class="bunker">
     <h1>EL CAPO DEL AUDIO</h1>
-    <div class="sub">UNIDAD MASTERING / BY ERICK SLAYER3866</div>
-
-    <div class="pantalla" id="log">
-        > UNIDAD ARMADA Y CARGADA...<br>
-        <span style="color:var(--oro); font-weight:bold;">> DISPARÁNDOLE A TUS ROLAS JODIDAS</span><br>
-        > LISTO PARA EJECUTAR EL MÁSTER.
-    </div>
-
-    <button id="recBtn" class="btn btn-grab" onclick="startRec()">● GRABAR TU P*** VOZ (ESTUDIO)</button>
-    <button id="stopBtn" class="btn btn-stop" onclick="stopRec()">■ FINALIZAR Y PULIR</button>
-
-    <div style="margin: 25px 0; border-bottom: 1px solid #111;"></div>
-
-    <div style="text-align: left; margin-bottom: 15px;">
-        <label style="font-size: 0.65rem; color: #444; margin-left: 5px;">CARGAR ROLA JODIDA (ARCHIVO)</label>
-        <input type="file" id="archivo" accept="audio/*">
-    </div>
-
-    <button class="btn btn-master" onclick="procesar()">SOLTAR EL MÁSTER FINAL</button>
+    <div class="sub">BY ERICK SLAYER3866 | V.2026 GLOBAL</div>
+    <div class="consola" id="log">> VPN SECURITY ACTIVE...<br>> <span id="slogan" style="color:var(--oro);">DISPARÁNDOLE A TUS ROLAS JODIDAS</span></div>
+    
+    <button id="recBtn" class="btn btn-grab" onclick="recStart()">● <span id="txt-rec">GRABAR VOZ O INSTRUMENTO</span></button>
+    <button id="stopBtn" class="btn" style="display:none; background:#fff;" onclick="recStop()">■ STOP</button>
+    
+    <input type="file" id="inputAudio" accept="audio/*" style="width:100%; margin:10px 0;">
+    <button class="btn btn-master" onclick="masterizar(false)">SOLTAR EL MÁSTER</button>
 
     <div id="resultado" style="display:none;">
         <audio id="player" controls controlsList="nodownload"></audio>
-        
-        <div class="precios" id="tabla">
-            <div style="font-size: 0.65rem; color: #666; margin-bottom: 15px;">PAGA EL DERECHO DE PISO</div>
-            <a href="https://link.mercadopago.com.mx/elarsenal" target="_blank" class="pago">
-                <span>MÁSTER SENCILLO (1 ROLA)</span> <span class="monto">$150 MXN</span>
-            </a>
-            <a href="https://link.mercadopago.com.mx/elarsenal" target="_blank" class="pago">
-                <span>PAQUETE ESTUDIO (CON GRABACIÓN)</span> <span class="monto">$450 MXN</span>
-            </a>
-            <a href="https://link.mercadopago.com.mx/elarsenal" target="_blank" class="pago">
-                <span>ALTO MANDO (PAQUETE COMPLETO)</span> <span class="monto">$800 MXN</span>
-            </a>
-        </div>
-
-        <div id="descarga">
-            <a id="linkF" style="color:var(--oro); text-decoration:none; font-weight:bold; cursor:pointer;">📥 BAJAR MÁSTER TERMINADO</a>
-        </div>
+        <div id="lista-precios" style="margin-top:20px;"></div>
+        <div id="descarga"><a id="linkD" style="color:var(--oro); text-decoration:none; font-weight:bold;">📥 DOWNLOAD MASTER</a></div>
     </div>
-
-    <div style="font-size: 0.6rem; color: #222; margin-top: 35px;">
-        SONIDO EJECUTIVO O NADA. <br>
-        <span id="llave" style="cursor: default; opacity: 0.3;">♪</span> 2026 EL CAPO DEL AUDIO
-    </div>
+    
+    <div id="key" style="margin-top:20px; color:#111; cursor:pointer;">♫</div>
 </div>
 
 <script>
-    let mediaRecorder; let audioChunks = []; let esJefe = false; let t;
+    let rec, chunks = [], boss = false, timer, isEn = navigator.language.startsWith('en');
+    if(isEn) document.getElementById('slogan').innerText = "SHOOTING YOUR TRACKS";
 
-    // --- SEGURIDAD: CADENERO VPN ---
-    fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
-        if(data.security && (data.security.vpn || data.security.proxy)) {
-            document.body.innerHTML = "<h1 style='color:red; margin-top:100px;'>ACCESO DENEGADO: EL CAPO NO ACEPTA VPNs.</h1>";
-        }
+    // CADENERO VPN
+    fetch('https://ipapi.co/json/').then(r => r.json()).then(d => {
+        if(d.security && (d.security.vpn || d.security.proxy)) document.body.innerHTML = "<h1>ACCESS DENIED</h1>";
     });
 
-    async function startRec() {
-        audioChunks = [];
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(audioChunks, { type: 'audio/mp3' });
-            document.getElementById('player').src = URL.createObjectURL(blob);
-            procesar();
+    async function recStart() {
+        chunks = []; const s = await navigator.mediaDevices.getUserMedia({ audio: true });
+        rec = new MediaRecorder(s); rec.ondataavailable = e => chunks.push(e.data);
+        rec.onstop = () => { 
+            const b = new Blob(chunks, { type: 'audio/mp3' }); 
+            document.getElementById('player').src = URL.createObjectURL(b); 
+            masterizar(true); 
         };
-        mediaRecorder.start();
-        document.getElementById('recBtn').style.display = 'none';
-        document.getElementById('stopBtn').style.display = 'block';
-        document.getElementById('log').innerHTML = "> GRABANDO VOZ...<br>> CALIBRANDO PARA QUE NO SUENE JODIDA";
+        rec.start(); document.getElementById('recBtn').style.display='none'; document.getElementById('stopBtn').style.display='block';
     }
+    function recStop() { rec.stop(); document.getElementById('recBtn').style.display='block'; document.getElementById('stopBtn').style.display='none'; }
 
-    function stopRec() { mediaRecorder.stop(); document.getElementById('recBtn').style.display = 'block'; document.getElementById('stopBtn').style.display = 'none'; }
-
-    function procesar() {
-        const file = document.getElementById('archivo').files[0];
+    function masterizar(grab) {
         const p = document.getElementById('player');
-        if(!p.src && file) p.src = URL.createObjectURL(file);
+        if(!p.src && document.getElementById('inputAudio').files[0]) p.src = URL.createObjectURL(document.getElementById('inputAudio').files[0]);
         if(!p.src) return;
 
-        let ctx = new (window.AudioContext || window.webkitAudioContext)();
-        let src = ctx.createMediaElementSource(p);
-        let low = ctx.createBiquadFilter(); low.type="lowshelf"; low.frequency.value=75; low.gain.value=18;
-        let high = ctx.createBiquadFilter(); high.type="peaking"; high.frequency.value=6000; high.gain.value=12;
-        let comp = ctx.createDynamicsCompressor(); comp.threshold.value=-22; comp.ratio.value=14;
-        
-        src.connect(low).connect(high).connect(comp).connect(ctx.destination);
-        document.getElementById('resultado').style.display = 'block';
-        document.getElementById('tabla').style.display = 'block';
-        document.getElementById('log').innerHTML = "> MÁSTER DISPARADO<br>> ESCUCHA LA DIFERENCIA (90S)";
-        p.play();
+        const zona = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        let mon = "MXN";
+        if (zona.includes("Europe")) mon = "EUR";
+        else if (zona.includes("America") && !zona.includes("Mexico")) mon = "USD";
 
-        p.ontimeupdate = () => { if(!esJefe && p.currentTime >= 90) { p.pause(); p.currentTime = 0; alert("PAGA EL DERECHO DE PISO PARA BAJARLA"); } };
-        document.getElementById('linkF').href = p.src;
-        document.getElementById('linkF').download = "MASTER_EL_CAPO.mp3";
+        let precios = grab ? 
+            {u: (mon==="EUR"?"€90":(mon==="USD"?"$95":"$650")), o: (mon==="EUR"?"€280":(mon==="USD"?"$300":"$2150"))} :
+            {u: (mon==="EUR"?"€40":(mon==="USD"?"$45":"$300")), o: (mon==="EUR"?"€220":(mon==="USD"?"$250":"$1800"))};
+
+        const t = isEn ? ["1 TRACK", "8 TRACKS", "RATE:"] : ["1 ROLA", "8 ROLAS", "CUOTA:"];
+
+        document.getElementById('lista-precios').innerHTML = `
+            <div style="font-size:8px; color:#555; margin-bottom:5px;">${t[2]}</div>
+            <a href="https://link.mercadopago.com.mx/elcapo" class="pago"><span>${t[0]}</span> <span class="monto">${precios.u} ${mon}</span></a>
+            <a href="https://link.mercadopago.com.mx/elcapo" class="pago"><span>${t[1]}</span> <span class="monto">${precios.o} ${mon}</span></a>`;
+        
+        document.getElementById('resultado').style.display='block'; p.play();
+        p.ontimeupdate = () => { if(!boss && p.currentTime >= 90) { p.pause(); p.currentTime=0; alert("PAGA AL CAPO"); }};
+        document.getElementById('linkD').href = p.src;
     }
 
-    // --- TU LLAVE (♪ 3 SEGUNDOS) ---
-    const icono = document.getElementById('llave');
-    const onS = () => { t = setTimeout(() => { esJefe = true; document.getElementById('descarga').style.display = 'block'; document.getElementById('tabla').style.display = 'none'; document.getElementById('log').innerHTML = "> BIENVENIDO JEFE SLAYER3866<br>> TODO DESBLOQUEADO"; alert("MODO CAPO ACTIVADO"); }, 3000); };
-    const onE = () => { clearTimeout(t); };
-    icono.addEventListener('mousedown', onS); icono.addEventListener('mouseup', onE);
-    icono.addEventListener('touchstart', onS); icono.addEventListener('touchend', onE);
+    const k = document.getElementById('key');
+    k.onmousedown = () => { timer = setTimeout(() => { boss=true; document.getElementById('descarga').style.display='block'; alert("BOSS MODE"); }, 3000); };
+    k.onmouseup = () => clearTimeout(timer);
 </script>
 </body>
 </html>
